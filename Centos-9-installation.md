@@ -11,7 +11,9 @@
  
   
 - Set the name to **CentOS 9**, type to **Linux**, and version to **Red Hat (64-bit)**.
-- ![image](https://github.com/user-attachments/assets/07aa82f7-0b17-4f15-bd44-2be54894af8d)
+- ![image](https://github.com/user-attachments/assets/d00b7612-9b30-4e88-9786-288d714c0846)
+
+
 
   
 - Allocate **4096 MB** RAM (According to requirement).  
@@ -24,7 +26,9 @@
   - Choose **Dynamically allocated**  
   - Set **file location and size to 40 GB** (According to requirement)
   - ![image](https://github.com/user-attachments/assets/b2434416-0f17-4758-978a-b2d4eb1978cd)
-  - ![image](https://github.com/user-attachments/assets/4a38f3ac-88df-4f7d-bb7a-1e9bc81c6c5f)
+  - ![image](https://github.com/user-attachments/assets/976a8c64-5200-49bb-b7b9-3af67936e283)
+
+
 
 
   
@@ -35,7 +39,10 @@
 - ![image](https://github.com/user-attachments/assets/09d61c84-fb26-45a5-be04-d7ed3f6f3318)
 
 - and click **mount and reboot**
-- ![image](https://github.com/user-attachments/assets/0e0d2168-0db0-43a1-9c1e-1a914434ba96)
+- ![image](https://github.com/user-attachments/assets/b208f35c-c864-4031-b017-699b4e7ce409)
+
+
+
 
 
 
