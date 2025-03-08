@@ -1,0 +1,340 @@
+# **ps (Process Status) Command 
+
+The **`ps` (Process Status)** command is used to **display active processes** running on a Linux system. It provides details such as **process ID (PID), user, CPU usage, memory usage, and command execution path**.
+
+---
+
+## **Key Features of ps Command**
+
+- View currently running processes
+- Show detailed information like PID, user, CPU, and memory usage
+- Customize output using different options
+- Filter processes by user, parent process, or terminal
+- Sort processes based on CPU, memory, or start time
+- Display process hierarchy in tree format
+- Identify high CPU or memory-consuming processes
+
+---
+
+## **Basic Syntax**
+
+```sh
+ps [options]
+```
+
+- `options` → Modify the output to display specific process details.
+
+---
+
+## **Examples with Output & Explanation**
+
+### **1 Show All Running Processes**
+
+**Command:**
+
+```sh
+ps -e
+```
+
+**Explanation:**
+
+- `-e` → Displays **all processes** running on the system, including those not linked to a terminal.
+
+**Output:**
+
+```
+  PID TTY          TIME CMD
+    1 ?        00:00:02 systemd
+  234 ?        00:00:00 sshd
+  567 ?        00:00:01 nginx
+ 1023 ?        00:00:03 firefox
+```
+
+**Output Breakdown:**
+
+- **PID** → Process ID
+- **TTY** → Terminal associated with the process (`?` means no terminal)
+- **TIME** → CPU time used by the process
+- **CMD** → Command that started the process
+
+---
+
+### **2 Show All Processes with Full Details**
+
+**Command:**
+
+```sh
+ps -ef
+```
+
+**Explanation:**
+
+- `-e` → Show all processes
+- `-f` → Full-format listing with extra details
+
+**Output:**
+
+```
+UID        PID  PPID  C STIME TTY          TIME CMD
+root         1     0  0 10:00 ?        00:00:02 /sbin/init
+root       234     1  0 10:01 ?        00:00:00 /usr/sbin/sshd
+user      1023   234  1 10:05 ?        00:00:03 firefox
+```
+
+**Output Breakdown:**
+
+- **UID** → User running the process
+- **PID** → Process ID
+- **PPID** → Parent Process ID
+- **C** → CPU utilization
+- **STIME** → Process start time
+- **TTY** → Terminal (if any)
+- **CMD** → Command that started the process
+
+---
+
+### **3 Show Processes of a Specific User**
+
+**Command:**
+
+```sh
+ps -u user
+```
+
+**Explanation:**
+
+- `-u user` → Displays only processes **owned by the specified user**.
+
+**Output:**
+
+```
+  PID TTY          TIME CMD
+ 1023 ?        00:00:03 firefox
+ 1098 ?        00:00:00 gedit
+```
+
+**Output Breakdown:**
+
+- Shows only the processes **owned by "user"**
+
+---
+
+### **4 Show Processes in Hierarchical Format**
+
+**Command:**
+
+```sh
+ps -ef --forest
+```
+
+**Explanation:**
+
+- `--forest` → Displays processes in a **tree structure**, showing parent-child relationships.
+
+**Output:**
+
+```
+  PID  PPID CMD
+    1     0 systemd
+  234     1  \_ sshd
+ 1023   234      \_ firefox
+ 1098   234      \_ gedit
+```
+
+**Output Breakdown:**
+
+- `_` → Shows **child processes** under their **parent process**.
+- `firefox` and `gedit` are running under `sshd` (process ID **234**).
+
+---
+
+### **5 Show a Specific Process by PID**
+
+**Command:**
+
+```sh
+ps -p 1234
+```
+
+**Explanation:**
+
+- `-p <PID>` → Shows only the **specified process ID**.
+
+**Output:**
+
+```
+  PID TTY          TIME CMD
+ 1234 ?        00:00:02 python3
+```
+
+**Output Breakdown:**
+
+- Displays **only process 1234**, which is running **python3**.
+
+---
+
+### **6 Show Child Processes of a Specific Parent Process**
+
+**Command:**
+
+```sh
+ps --ppid 1
+```
+
+**Explanation:**
+
+- `--ppid <PID>` → Shows processes that have **PID 1** as their **parent**.
+
+**Output:**
+
+```
+  PID TTY          TIME CMD
+  234 ?        00:00:00 sshd
+  567 ?        00:00:01 nginx
+```
+
+**Output Breakdown:**
+
+- `sshd` and `nginx` are **child processes of process 1**.
+
+---
+
+### **7 Show Only Running Processes**
+
+**Command:**
+
+```sh
+ps -r
+```
+
+**Explanation:**
+
+- `-r` → Displays **only active/running processes**, excluding sleeping processes.
+
+**Output:**
+
+```
+  PID TTY          TIME CMD
+ 1023 ?        00:00:03 firefox
+ 2098 ?        00:00:02 chrome
+```
+
+**Output Breakdown:**
+
+- Only shows **currently running** processes.
+
+---
+
+### **8 Show Process Memory Usage**
+
+**Command:**
+
+```sh
+ps -eo pid,%mem,cmd --sort=-%mem
+```
+
+**Explanation:**
+
+- `-e` → Show all processes
+- `-o` → Customize output format
+- `%mem` → Display memory usage percentage
+- `--sort=-%mem` → Sort results in **descending order of memory usage**
+
+**Output:**
+
+```
+  PID %MEM CMD
+ 1023  6.5 firefox
+ 2098  5.3 chrome
+  567  2.0 nginx
+```
+
+**Output Breakdown:**
+
+- Shows processes **sorted by memory usage** from highest to lowest.
+
+---
+
+### **9 Show Process CPU Usage**
+
+**Command:**
+
+```sh
+ps -eo pid,%cpu,cmd --sort=-%cpu
+```
+
+**Explanation:**
+
+- `%cpu` → Displays CPU usage percentage
+- `--sort=-%cpu` → Sort results in **descending order of CPU usage**
+
+**Output:**
+
+```
+  PID %CPU CMD
+ 2098 15.2 chrome
+ 1023 12.4 firefox
+  567  2.1 nginx
+```
+
+**Output Breakdown:**
+
+- Shows processes **sorted by CPU usage** from highest to lowest.
+
+---
+
+### **10 Show Only Specific Columns**
+
+**Command:**
+
+```sh
+ps -eo pid,ppid,cmd
+```
+
+**Explanation:**
+
+- `-e` → Show all processes
+- `-o pid,ppid,cmd` → Customize output to show **PID, PPID, and command**
+
+**Output:**
+
+```
+  PID  PPID CMD
+    1     0 systemd
+  234     1 sshd
+ 1023   234 firefox
+```
+
+**Output Breakdown:**
+
+- Shows **only selected fields** (PID, PPID, CMD).
+
+---
+
+### **11 Show Processes Sorted by Start Time**
+
+**Command:**
+
+```sh
+ps -eo pid,stime,cmd --sort=stime
+```
+
+**Explanation:**
+
+- `stime` → Displays **start time of processes**
+- `--sort=stime` → Sorts processes in **ascending order of start time**
+
+**Output:**
+
+```
+  PID STIME CMD
+    1 10:00 systemd
+  234 10:01 sshd
+ 1023 10:05 firefox
+```
+
+**Output Breakdown:**
+
+- Shows processes **sorted by start time** (oldest to newest).
+
+---
